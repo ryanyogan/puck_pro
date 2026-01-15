@@ -1,0 +1,244 @@
+/* PuckPro - Hockey Training Application
+   Ice-inspired dark theme for young players */
+
+@import "tailwindcss" source(none);
+@source "../css";
+@source "../js";
+@source "../../lib/puck_pro_web";
+
+/* Heroicons plugin */
+@plugin "../vendor/heroicons";
+
+/* daisyUI plugin */
+@plugin "../vendor/daisyui" {
+  themes: false;
+}
+
+/* Dark Theme - Ice Rink Inspired (Default) */
+@plugin "../vendor/daisyui-theme" {
+  name: "dark";
+  default: true;
+  prefersdark: true;
+  color-scheme: "dark";
+
+  /* Deep ice surface colors */
+  --color-base-100: oklch(12% 0.008 240);      /* Deep rink black */
+  --color-base-200: oklch(18% 0.012 240);      /* Dark ice - cards */
+  --color-base-300: oklch(25% 0.015 240);      /* Ice edge - borders */
+  --color-base-content: oklch(97% 0.005 240);  /* Bright white text */
+
+  /* Ice blue - primary actions, links */
+  --color-primary: oklch(65% 0.18 230);        /* Vibrant ice blue */
+  --color-primary-content: oklch(98% 0.01 230);
+
+  /* Steel gray - secondary elements */
+  --color-secondary: oklch(55% 0.04 240);
+  --color-secondary-content: oklch(98% 0.01 240);
+
+  /* Gold - achievements, highlights, stars */
+  --color-accent: oklch(78% 0.16 85);          /* Trophy gold */
+  --color-accent-content: oklch(15% 0.02 85);
+
+  /* Semantic colors */
+  --color-success: oklch(70% 0.18 150);        /* Green light - go! */
+  --color-warning: oklch(78% 0.16 85);         /* Caution yellow */
+  --color-error: oklch(65% 0.20 25);           /* Red puck - errors */
+  --color-info: oklch(70% 0.15 230);           /* Info blue */
+
+  --color-neutral: oklch(22% 0.01 240);
+  --color-neutral-content: oklch(92% 0.005 240);
+
+  /* Sharp, athletic corners */
+  --radius-selector: 0.125rem;
+  --radius-field: 0.125rem;
+  --radius-box: 0.25rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* Light Theme - Practice Facility */
+@plugin "../vendor/daisyui-theme" {
+  name: "light";
+  default: false;
+  prefersdark: false;
+  color-scheme: "light";
+
+  --color-base-100: oklch(98% 0.002 240);
+  --color-base-200: oklch(95% 0.005 240);
+  --color-base-300: oklch(90% 0.008 240);
+  --color-base-content: oklch(15% 0.01 240);
+
+  --color-primary: oklch(50% 0.20 230);
+  --color-primary-content: oklch(98% 0.01 230);
+
+  --color-secondary: oklch(45% 0.04 240);
+  --color-secondary-content: oklch(98% 0.01 240);
+
+  --color-accent: oklch(65% 0.18 85);
+  --color-accent-content: oklch(15% 0.02 85);
+
+  --color-success: oklch(55% 0.20 150);
+  --color-warning: oklch(65% 0.18 85);
+  --color-error: oklch(55% 0.22 25);
+  --color-info: oklch(55% 0.18 230);
+
+  --color-neutral: oklch(40% 0.01 240);
+  --color-neutral-content: oklch(98% 0.005 240);
+
+  --radius-selector: 0.125rem;
+  --radius-field: 0.125rem;
+  --radius-box: 0.25rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* LiveView loading state variants */
+@custom-variant phx-click-loading (.phx-click-loading&, .phx-click-loading &);
+@custom-variant phx-submit-loading (.phx-submit-loading&, .phx-submit-loading &);
+@custom-variant phx-change-loading (.phx-change-loading&, .phx-change-loading &);
+
+/* Dark mode variant */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* LiveView wrapper transparency */
+[data-phx-session], [data-phx-teleported-src] { display: contents; }
+
+/* ======================================
+   CUSTOM COMPONENTS
+   ====================================== */
+
+/* Stats card with monospace numbers */
+.stat-value {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Puck loader animation */
+@keyframes puck-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-puck-spin {
+  animation: puck-spin 1s linear infinite;
+}
+
+/* Level up glow */
+@keyframes level-glow {
+  0%, 100% { box-shadow: 0 0 5px oklch(78% 0.16 85), 0 0 10px oklch(78% 0.16 85); }
+  50% { box-shadow: 0 0 20px oklch(78% 0.16 85), 0 0 30px oklch(78% 0.16 85); }
+}
+
+.animate-level-glow {
+  animation: level-glow 2s ease-in-out infinite;
+}
+
+/* Progress bar fill animation */
+@keyframes progress-fill {
+  from { width: 0; }
+}
+
+.animate-progress-fill {
+  animation: progress-fill 1s ease-out forwards;
+}
+
+/* Achievement unlock */
+@keyframes achievement-pop {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-achievement-pop {
+  animation: achievement-pop 0.5s ease-out forwards;
+}
+
+/* AI thinking animation */
+@keyframes ai-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+.animate-ai-pulse {
+  animation: ai-pulse 1.5s ease-in-out infinite;
+}
+
+/* Streaming text cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-cursor-blink::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+}
+
+/* Ice rink lines */
+.ice-lines {
+  background-image:
+    linear-gradient(90deg, transparent 49.5%, oklch(65% 0.15 25) 49.5%, oklch(65% 0.15 25) 50.5%, transparent 50.5%),
+    linear-gradient(90deg, transparent 15%, oklch(65% 0.18 230) 15%, oklch(65% 0.18 230) 16%, transparent 16%),
+    linear-gradient(90deg, transparent 84%, oklch(65% 0.18 230) 84%, oklch(65% 0.18 230) 85%, transparent 85%);
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* XP bar styling */
+.xp-bar {
+  background: linear-gradient(90deg, oklch(65% 0.18 230), oklch(70% 0.15 230));
+}
+
+/* Trophy/medal shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.trophy-shimmer {
+  background: linear-gradient(
+    90deg,
+    oklch(78% 0.16 85) 0%,
+    oklch(85% 0.12 85) 50%,
+    oklch(78% 0.16 85) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Mobile touch targets */
+@media (max-width: 640px) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Prevent iOS zoom on inputs */
+input, select, textarea {
+  font-size: 16px;
+}
+
+/* Safe area padding for notch devices */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .safe-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
